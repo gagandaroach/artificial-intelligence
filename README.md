@@ -50,8 +50,10 @@ Reading: AIMA: Chapter 1
 Reading: AIMA: Chapter 2  
 
 #### Lab:
-- [Problem set 1](labs/CS4881-problemset1.pdf)  
-- [Python Programming](https://github.com/jayurbain/DataScienceIntro/blob/master/labs/lab_0_python/lab_0_python.ipynb)  *Submission required*
+- [Juputer Notebook Tutorial](https://github.com/jayurbain/machine-learning/blob/master/notebooks/lab_0_python/lab_0_jupyter.ipynb) *Optional*    
+- [Problem set 1](labs/CS4881-problemset1.pdf) *Submission required*
+  
+- [Python Programming](https://github.com/jayurbain/DataScienceIntro/blob/master/labs/lab_0_python/lab_0_python.ipynb)  *Submission required*  
 
 - Reference: [AI Grand Challenges](http://www.engineeringchallenges.org/challenges.aspx)  
 
@@ -82,14 +84,8 @@ Outcomes addressed in week 2:
 
 #### Lecture:   
 
-1. [Constraint Satisfaction](slides/m5-csp.pdf)  
-Reading: AIMA Ch. 5  
-
-2. [Online Search](slides/m4.5-onlinesearch.pdf)  
+1. [Online Search](slides/m4.5-onlinesearch.pdf)  **postpone**  
 Reading: AIMA Ch. 4.5  
-
-3. [Game Play, Adversarial Search, Minimax](slides/m6-game.pdf)  
-Reading: AIMA Ch. 6.1-6.3  
 
 #### Lab Notebooks:
 - [Problem set 2: Logical Agents](labs/CS4881-problemset2.pdf)  *continued*
@@ -103,7 +99,7 @@ Outcomes addressed in week 3:
 #### Week 4: Logic and Inference   
 
 #### Lecture:
-
+<!--
 1. [Logical Agents, Propositional Logic](slides/m7-logic.pdf)  
 Reading: AIMA Ch. 7  
 [New chapter 7](http://jayurbain.com/msoe/cs4881/newchap07.pdf)  
@@ -115,9 +111,20 @@ Reading: AIMA Ch. 8
 3. [First Order Inference](slides/m8-fol.pdf)      
 Reading: AIMA Ch. 9.4    
 [Logical Agents Review Notes](http://jayurbain.com/msoe/cs4881/logicalagentsreviewnotes.pdf)
+-->
+
+1. [Constraint Satisfaction](slides/berkley/lecture4_CSPs.pdf)  
+<!-- 1. [Constraint Satisfaction](slides/m5-csp.pdf)  -->
+Reading: AIMA Ch. 5
+
+2. [Game Play, Adversarial Search, Minimax](slides/berkley/m6-game.pdf)  
+Reading: AIMA Ch. 6.1-6.3, Sutton Ch. 3-4  
+
+3. [Game Play Uncertainty, Expectimax](slides/berkley/lecture7_expectimax_search_and_utilities.pdf)    
+Reading: AIMA Ch. 6.1-6.3, Sutton Ch. 3-4.
 
 #### Lab Notebooks:  
-- [Problem set 3: Logical Agents](labs/CS4881-problemset3.pdf)  *continued*
+- [Problem set 3: Pacman Multi-Agent](labs/pacman_multi_agent/Multi-Agent-Search.ipynb)  
 
 Outcomes addressed in week 4:     
 - Demonstrate an understanding of the principles of formal logic including propositional calculus, and first order logic.  
@@ -125,27 +132,38 @@ Outcomes addressed in week 4:
 
 ---
 
-### Week 5: Uncertainty
+### Week 5: Markov Decision Processes
 
 #### Lecture:
 
-1. [Acting under uncertainty, probability, joint distributions](slides/m13-uncertainty.pdf)  
+1. [MDP 1](slides/berkley/lecture8_MDPs_I.pdf)  
+Reading: AIMA Ch. 13-17, Sutton Ch. 3-4   
+
+2. [MDP 2](slides/berkley/lecture8_MDPs_II.pdf)  
+Reading: AIMA Ch. 13-17, Sutton Ch. 3-4   
+
+3. [Midterm Study Guide](cs4881-midterm-studyguide.pdf)
+
+<!-- 
+1. [Acting under uncertainty, probability, joint distributions](slides/berkley/m13-uncertainty.pdf)  
 Reading: AIMA Ch. 13   
 
 2. [Naive Bayes](slides/naievbayesx2.pdf)
 
 3. [Bayesian Networks](slides/m14-bayesian.pdf)  *Optional*
 - Reading: AIMA Ch. 14   
+-->
 
 #### Lab Notebooks:  
-- [Problem set 3-5: Logical Agents working under uncertainty](labs/CS4881-problemset3-5_uncertainty.pdf)  *continued*     
+- Midterm review   
+- [Problem set 3: Pacman Muilti-Agent](labs/pacman_multi_agent/Multi-Agent-Search.ipynb)  *continued*     
 
 Outcomes addressed in week 5:    
 - Understand the techniques involved with reasoning in the presence of uncertainty.  
 
 ---
 
-#### Week 6: Midterm, Introduction to Machine Learning
+#### Week 6: Midterm, Introduction to Machine Learning, Reinforcement Learning
 
 #### Lecture:
 1. **Midterm**
