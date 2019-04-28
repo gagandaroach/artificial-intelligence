@@ -119,6 +119,21 @@ class Puzzle8:
                 if debug: print(self)
                 count += 1
 
+    def calculate_misplaced_tiles(self, solution_pattern):
+        num_correct = 8
+        for pos in range(9):
+            if self.get_tile_at(pos) == solution_pattern[pos]:
+                num_correct += 1
+        return 9 - num_correct
+
+    def calculate_misplaced_tiles(self, solution_pattern):
+        num_correct = 8
+        for pos in range(9):
+            if self.get_tile_at(pos) == solution_pattern[pos]:
+                num_correct += 1
+        return 9 - num_correct
+
+
 def dump_pattern_test():
     puzzle = Puzzle8()
     print(puzzle.dump_pattern())
