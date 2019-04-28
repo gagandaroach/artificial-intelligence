@@ -1,7 +1,12 @@
 """
 Artifical Intelligence - MSOE
-Gagan Daroach
+Author - Gagan Daroach <gagandaroach@gmail.com>
 April 26 2019
+
+An implementation of the Puzzle8 Game. 
+This file is part of my coursework during my undergrad at Milwaukee School of Engineering.
+The purpose of this file is to be used as a illustration and learning tool
+    for the hill climbing and a* search techniques with different heuristics.
 """
 
 import numpy as np
@@ -127,9 +132,32 @@ class Puzzle8:
                 num_correct += 1
         return 9 - num_correct
 
+    def calculate_manhattan_distance(self, solution_pattern, debug = False):
+        man_distance = 0
+        for pos in range(9):
+            my_tile = int(self.get_tile_at(pos))
+            sol_tile = int(solution_pattern[pos])
+            my_pos = self.find_tile(my_tile)
+            sol_pos = self.find_tile(sol_tile)
+            distance = self.pos_distance(my_pos, sol_pos)
+            man_distance += distance
+        return man_distance
 
-# end class, start of my tests
+    def pos_distance(self, pos1, pos2):
+        coord1 = self.pos_to_coordinate(pos1)
+        coord2 = self.pos_to_coordinate(pos2)
+        deltaX = abs(coord1[0] - coord2[0])
+        deltaY = abs(coord1[1] - coord2[1])
+        return deltaX + deltaY
+
+# end of class, start of my tests
 # used during development to see if stuff was working right
+
+def calculate_manhattan_distance_test():
+    puzzle = Puzzle8()
+    print('should be 0: ', puzzle.calculate_manhattan_distance("012345678", True))
+    print('should be something: ', puzzle.calculate_manhattan_distance("876543210", True))
+    print('should be something smaller; ', puzzle.calculate_manhattan_distance("012348765", True))
 
 def calculate_misplaced_tiles_test():
     puzzle = Puzzle8()
@@ -172,4 +200,4 @@ def randomize_test():
     print(puzzle)
 
 if __name__ == "__main__":
-    calculate_misplaced_tiles_test()
+    calculate_manhattan_distance_test()
