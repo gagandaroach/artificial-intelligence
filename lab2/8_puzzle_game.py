@@ -6,18 +6,13 @@ April 26 2019
 
 import numpy as np
 import pprint as pp
-from enum import Enum
+from enum import Enum, auto
 
-class Position(Enum):
-    0
-    1
-    2
-    3
-    4
-    5
-    6
-    7
-    8
+class Direction(Enum):
+    RIGHT = auto()
+    LEFT = auto()
+    DOWN = auto()
+    UP = auto()
 
 class Puzzle8:
 
@@ -46,7 +41,10 @@ class Puzzle8:
         return ' Grid Printout:\n' + str(self.grid)
 
     def swap_tiles(self, pos1, pos2):
-        temp = 0
+        """swaps the location of two tiles"""
+        temp = self.get_tile_at(pos1)
+        self.set_tile_at(pos1, self.get_tile_at(pos2))
+        self.set_tile_at(pos2, temp)
 
     def get_tile_at(self, pos):
         coordinates = self.pos_to_coordinate(pos)
@@ -61,8 +59,10 @@ class Puzzle8:
         x = pos % 3
         return (x,y)
 
-
-
 if __name__ == "__main__":
     puzzle = Puzzle8()
+    print(puzzle)
+    puzzle.swap_tiles(0, 8)
+    puzzle.swap_tiles(0, 3)
+
     print(puzzle)
