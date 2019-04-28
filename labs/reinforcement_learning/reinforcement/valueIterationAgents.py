@@ -93,10 +93,14 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
+<<<<<<< HEAD
         possible_actions = self.mdp.getPossibleActions(state)
         
         return None
         # util.raiseNotDefined()
+=======
+        util.raiseNotDefined()
+>>>>>>> 48c04ee0b9c49fdf0307ac50cafe2911691bde67
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
