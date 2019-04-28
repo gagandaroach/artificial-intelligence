@@ -39,6 +39,14 @@ class Puzzle8:
         for pos in range(9):
             self.set_tile_at(pos, pos)
 
+    def load_pattern(self, pattern):
+        """pattern format: 012345678"""
+        if len(pattern) != 9:
+            print("Error - Pattern %s was not the correct length." % pattern)
+        else:
+            for pos in range(9):
+                self.set_tile_at(pos, pattern[pos])
+
     def __str__(self):
         return ' Grid Printout:\n' + str(self.grid)
 
@@ -124,5 +132,11 @@ def swap_test():
     print(puzzle.find_missing_tile())
     print(puzzle.find_missing_tile() == 4)
 
+def load_pattern_test():
+    puzzle = Puzzle8()
+    pattern = "158764302"
+    puzzle.load_pattern(pattern)
+    print(pattern, puzzle)
+
 if __name__ == "__main__":
-    move_test()
+    load_pattern_test()
