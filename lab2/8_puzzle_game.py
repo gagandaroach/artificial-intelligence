@@ -56,7 +56,7 @@ class Puzzle8:
 
     def get_tile_at(self, pos):
         coordinates = self.pos_to_coordinate(pos)
-        return self.grid[coordinates[1]][coordinates[0]]
+        return int(self.grid[coordinates[1]][coordinates[0]])
 
     def set_tile_at(self, pos, val):
         coordinates = self.pos_to_coordinate(pos)
@@ -119,24 +119,28 @@ class Puzzle8:
                 if debug: print(self)
                 count += 1
 
-    def calculate_misplaced_tiles(self, solution_pattern):
-        num_correct = 8
+    def calculate_misplaced_tiles(self, solution_pattern, debug = False):
+        num_correct = 0
         for pos in range(9):
-            if self.get_tile_at(pos) == solution_pattern[pos]:
+            if int(self.get_tile_at(pos)) == int(solution_pattern[pos]):
+                if debug: print(solution_pattern[pos], self.get_tile_at(pos))
                 num_correct += 1
         return 9 - num_correct
 
-    def calculate_misplaced_tiles(self, solution_pattern):
-        num_correct = 8
-        for pos in range(9):
-            if self.get_tile_at(pos) == solution_pattern[pos]:
-                num_correct += 1
-        return 9 - num_correct
+
+# end class, start of my tests
+# used during development to see if stuff was working right
+
+def calculate_misplaced_tiles_test():
+    puzzle = Puzzle8()
+    print('should be 0: ', puzzle.calculate_misplaced_tiles("012345678", True))
+    print('should be 8: ', puzzle.calculate_misplaced_tiles("876543210", True))
+    print('should be half; ', puzzle.calculate_misplaced_tiles("012348765", True))
 
 
 def dump_pattern_test():
     puzzle = Puzzle8()
-    print(puzzle.dump_pattern())
+    print(puzzle.dump_pattern(), True)
 
 def move_test():
     puzzle = Puzzle8()
@@ -168,4 +172,4 @@ def randomize_test():
     print(puzzle)
 
 if __name__ == "__main__":
-    dump_pattern_test()
+    calculate_misplaced_tiles_test()
