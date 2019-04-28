@@ -21,10 +21,9 @@ class Puzzle8:
     """
     Position Locations
     [ [0. 1. 2.]
-        [3. 4. 5.]
-        [6. 7. 8.] ]
+      [3. 4. 5.]
+      [6. 7. 8.] ]
     """
-
     def __init__(self, pattern = "012345678"):
         self.grid = self.emptyGrid()
         self.load_pattern(pattern)
@@ -39,6 +38,12 @@ class Puzzle8:
         else:
             for pos in range(9):
                 self.set_tile_at(pos, pattern[pos])
+
+    def dump_pattern(self):
+        pattern = ""
+        for index in range(9):
+            pattern += str(int(self.get_tile_at(index)))
+        return pattern
 
     def __str__(self):
         return ' Grid Printout:\n' + str(self.grid)
@@ -114,6 +119,9 @@ class Puzzle8:
                 if debug: print(self)
                 count += 1
 
+def dump_pattern_test():
+    puzzle = Puzzle8()
+    print(puzzle.dump_pattern())
 
 def move_test():
     puzzle = Puzzle8()
@@ -145,4 +153,4 @@ def randomize_test():
     print(puzzle)
 
 if __name__ == "__main__":
-    randomize_test()
+    dump_pattern_test()
