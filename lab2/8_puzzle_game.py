@@ -5,6 +5,7 @@ April 26 2019
 """
 
 import numpy as np
+import random
 import pprint as pp
 from enum import Enum, auto
 
@@ -17,27 +18,19 @@ class Direction(Enum):
 
 
 class Puzzle8:
+    """
+    Position Locations
+    [ [0. 1. 2.]
+        [3. 4. 5.]
+        [6. 7. 8.] ]
+    """
 
-    def __init__(self):
+    def __init__(self, pattern = "012345678"):
         self.grid = self.emptyGrid()
-        self.initialize_grid(self.grid)
+        self.load_pattern(pattern)
 
     def emptyGrid(self):
         return np.zeros((3, 3))
-
-    def initialize_grid(self, grid):
-        """
-        [ [0. 1. 2.]
-          [3. 4. 5.]
-          [6. 7. 8.] ]
-        """
-        # count = 0
-        # for y in range(0,3):
-        #     for x in range(0,3):
-        #         grid[y][x] = count
-        #         count += 1
-        for pos in range(9):
-            self.set_tile_at(pos, pos)
 
     def load_pattern(self, pattern):
         """pattern format: 012345678"""
@@ -113,6 +106,14 @@ class Puzzle8:
                 self.swap_tiles(pos, pos + 3)
                 return True
 
+    def randomize_puzzle(self, num_random_moves = 15, debug = False):
+        count = 0
+        while count < num_random_moves:
+            random_direction = random.choice(list(Direction))
+            if (self.move_missing_tile(random_direction)):
+                if debug: print(self)
+                count += 1
+
 
 def move_test():
     puzzle = Puzzle8()
@@ -138,5 +139,10 @@ def load_pattern_test():
     puzzle.load_pattern(pattern)
     print(pattern, puzzle)
 
+def randomize_test():
+    puzzle = Puzzle8()
+    puzzle.randomize_puzzle()
+    print(puzzle)
+
 if __name__ == "__main__":
-    load_pattern_test()
+    randomize_test()
