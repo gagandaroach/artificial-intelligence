@@ -21,19 +21,16 @@ import random,util,math
 class QLearningAgent(ReinforcementAgent):
     """
       Q-Learning Agent
-
       Functions you should fill in:
         - computeValueFromQValues
         - computeActionFromQValues
         - getQValue
         - getAction
         - update
-
       Instance variables you have access to
         - self.epsilon (exploration prob)
         - self.alpha (learning rate)
         - self.discount (discount rate)
-
       Functions you should use
         - self.getLegalActions(state)
           which returns legal actions for a state
@@ -41,6 +38,9 @@ class QLearningAgent(ReinforcementAgent):
     def __init__(self, **args):
         "You can initialize Q-values here..."
         ReinforcementAgent.__init__(self, **args)
+
+        self.qvalues = {}
+
 
         "*** YOUR CODE HERE ***"
 
@@ -51,7 +51,12 @@ class QLearningAgent(ReinforcementAgent):
           or the Q node value otherwise
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+
+        if (state,action) not in self.qvalues:
+          return 0.0
+        else:
+          return self.qvalues[(state, action)]
 
 
     def computeValueFromQValues(self, state):
@@ -62,7 +67,24 @@ class QLearningAgent(ReinforcementAgent):
           terminal state, you should return a value of 0.0.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        possibleActions = self.getLegalActions(state)
+     
+        if len(possibleActions) == 0:
+          return 0
+
+        value = None
+        result = None
+        for action in possibleActions:
+          temp = self.getQValue(state, action)
+          if value == None or temp > value:
+            value = temp
+            result = action
+
+        if value == None:
+          value = 0
+
+        return value
 
     def computeActionFromQValues(self, state):
         """
@@ -71,7 +93,22 @@ class QLearningAgent(ReinforcementAgent):
           you should return None.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        possibleActions = self.getLegalActions(state)
+     
+        if len(possibleActions) == 0:
+          return None
+
+        value = None
+        result = None
+        for action in possibleActions:
+          temp = self.getQValue(state, action)
+          if value == None or temp > value:
+            value = temp
+            result = action
+
+        return result
+
 
     def getAction(self, state):
         """
@@ -80,33 +117,42 @@ class QLearningAgent(ReinforcementAgent):
           take the best policy action otherwise.  Note that if there are
           no legal actions, which is the case at the terminal state, you
           should choose None as the action.
-
           HINT: You might want to use util.flipCoin(prob)
           HINT: To pick randomly from a list, use random.choice(list)
         """
         # Pick Action
         legalActions = self.getLegalActions(state)
-        action = None
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
 
-        return action
+        if len(legalActions) == 0:
+          return None
+
+        if util.flipCoin(self.epsilon):
+          return random.choice(legalActions)
+
+        return self.computeActionFromQValues(state)
 
     def update(self, state, action, nextState, reward):
         """
           The parent class calls this to observe a
           state = action => nextState and reward transition.
           You should do your Q-Value update here
-
           NOTE: You should never call this function,
           it will be called on your behalf
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        if (state, action) not in self.qvalues:
+          self.qvalues[(state, action)] = 0.0
+
+        nextStateValue = self.computeValueFromQValues(nextState)
+        curStateValue = self.qvalues[(state, action)]
+        calculation = reward + (self.discount * nextStateValue) - curStateValue
+
+        self.qvalues[(state, action)] = curStateValue + (self.alpha * calculation)
 
     def getPolicy(self, state):
         return self.computeActionFromQValues(state)
-
+        
     def getValue(self, state):
         return self.computeValueFromQValues(state)
 
@@ -119,7 +165,6 @@ class PacmanQAgent(QLearningAgent):
         These default parameters can be changed from the pacman.py command line.
         For example, to change the exploration rate, try:
             python pacman.py -p PacmanQLearningAgent -a epsilon=0.1
-
         alpha    - learning rate
         epsilon  - exploration rate
         gamma    - discount factor
@@ -142,11 +187,9 @@ class PacmanQAgent(QLearningAgent):
         self.doAction(state,action)
         return action
 
-
 class ApproximateQAgent(PacmanQAgent):
     """
        ApproximateQLearningAgent
-
        You should only have to overwrite getQValue
        and update.  All other QLearningAgent functions
        should work as is.
@@ -165,22 +208,24 @@ class ApproximateQAgent(PacmanQAgent):
           where * is the dotProduct operator
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        feats = self.featExtractor.getFeatures(state, action)
+        qval = 0
+        for f in feats:
+          qval += feats[f] * self.getWeights()[f]
+        return qval
 
     def update(self, state, action, nextState, reward):
         """
            Should update your weights based on transition
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        feats = self.featExtractor.getFeatures(state, action)
+        for f in feats: 
+          self.weights[f] = self.weights[f] + self.alpha * feats[f]*((reward + self.discount * self.computeValueFromQValues(nextState)) - self.getQValue(state, action))
+
+        # util.raiseNotDefined()
 
     def final(self, state):
         "Called at the end of each game."
         # call the super-class final method
         PacmanQAgent.final(self, state)
-
-        # did we finish training?
-        if self.episodesSoFar == self.numTraining:
-            # you might want to print your weights here for debugging
-            "*** YOUR CODE HERE ***"
-            pass
